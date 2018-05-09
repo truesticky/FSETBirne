@@ -1,0 +1,31 @@
+<resources>
+    <string name="app_name">"FSET Birne "</string>
+    <string name="info_mode">Mode:</string>
+    <string name="info_delay">Delay:</string>
+    <string name="info_hue">Hue Delay:</string>
+    <string name="info_color">Color:</string>
+    <string name="info_R">R</string>
+    <string name="info_G">G</string>
+    <string name="info_B">B</string>
+    <string name="info_button_change">Change!</string>
+    <string name="info_connection_status">Connection Status:</string>
+    <string name="info_brightness">Brightness:</string>
+    <string name="info_startLED">Start</string>
+    <string name="info_endLED">End</string>
+    <string name="info_button_execute">Execute</string>
+
+    <string-array name="modes">
+        <item>Rainbow</item>
+        <item>Chase</item>
+        <item>Rainbow Chase</item>
+    </string-array>
+
+    <string-array name="segments">
+        <item>Bulb</item>
+        <item>Inner</item>
+        <item>Gewinde</item>
+
+
+    </string-array>
+
+</resources>
