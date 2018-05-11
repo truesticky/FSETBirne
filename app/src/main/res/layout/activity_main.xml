@@ -21,6 +21,18 @@
         android:text="@string/info_mode"
         android:textColor="@color/color_text"
         />
+
+    <Spinner
+        android:id="@+id/spinner_mode"
+        android:background="@color/color_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/text_connection"
+        android:layout_toRightOf="@+id/text_mode"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        />
+
     <TextView
         android:id="@+id/text_connection"
         android:layout_width="wrap_content"
@@ -42,22 +54,9 @@
         android:layout_toRightOf="@id/text_connection"
         android:layout_alignParentTop="true"
         android:layout_marginTop="10dp"
-        android:layout_marginLeft="5dp"
+        android:layout_marginStart="5dp"
         android:background="@color/color_text"
         />
-
-
-    <Spinner
-        android:id="@+id/spinner_mode"
-        android:background="@color/color_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/text_connection"
-        android:layout_toRightOf="@+id/text_mode"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="10dp"
-        >
-    </Spinner>
 
     <TextView
         android:id="@+id/text_delay"
@@ -66,22 +65,9 @@
         android:textSize="24sp"
         android:layout_below="@+id/spinner_mode"
         android:layout_marginTop="10dp"
-        android:layout_marginLeft="10dp"
-        android:layout_alignParentLeft="true"
+        android:layout_marginStart="10dp"
+        android:layout_alignParentStart="true"
         android:text="@string/info_delay"
-        android:textColor="@color/color_text"
-        />
-
-    <TextView
-        android:id="@+id/text_hue"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="24dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="25dp"
-        android:layout_below="@+id/spinner_mode"
-        android:layout_toRightOf="@+id/text_delay"
-        android:text="@string/info_hue"
         android:textColor="@color/color_text"
         />
 
@@ -92,15 +78,6 @@
         android:layout_alignParentLeft="true"
         android:layout_marginLeft="10dp"
         android:layout_below="@+id/text_delay"
-
-        />
-    <NumberPicker
-        android:id="@+id/picker_HUE"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="25dp"
-        android:layout_toRightOf="@+id/picker_delay"
-        android:layout_below="@+id/text_hue"
         />
 
     <NumberPicker
@@ -108,17 +85,31 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="75dp"
-        android:layout_toRightOf="@+id/picker_HUE"
+        android:layout_toRightOf="@+id/picker_delay"
         android:layout_below="@+id/text_brightness"
         />
+
+    <TextView
+        android:id="@+id/text_brightness"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="24sp"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="25dp"
+        android:layout_below="@+id/spinner_mode"
+        android:layout_toRightOf="@+id/text_delay"
+        android:text="@string/info_brightness"
+        android:textColor="@color/color_text"
+        />
+
     <TextView
         android:id="@+id/text_startLED"
         android:layout_marginLeft="15dp"
         android:layout_marginTop="10dp"
-        android:layout_toRightOf="@+id/input_B"
+        android:layout_toRightOf="@+id/text_brightness"
         android:textSize="24sp"
         android:textColor="@color/color_text"
-        android:layout_below="@+id/picker_brightness"
+        android:layout_below="@+id/spinner_mode"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/info_startLED"
@@ -130,7 +121,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
         android:orientation="horizontal"
-        android:layout_toRightOf="@+id/input_B"
+        android:layout_toRightOf="@+id/picker_brightness"
         android:layout_below="@+id/text_startLED"
         />
 
@@ -138,7 +129,7 @@
         android:id="@+id/text_endLED"
         android:layout_marginLeft="15dp"
         android:layout_marginTop="10dp"
-        android:layout_toRightOf="@+id/input_B"
+        android:layout_toRightOf="@+id/picker_brightness"
         android:textSize="24sp"
         android:textColor="@color/color_text"
         android:layout_below="@+id/picker_startLED"
@@ -153,22 +144,8 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
         android:orientation="horizontal"
-        android:layout_toRightOf="@+id/input_B"
+        android:layout_toRightOf="@+id/picker_brightness"
         android:layout_below="@+id/text_endLED"
-        />
-
-
-    <TextView
-        android:id="@+id/text_brightness"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="24sp"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="25dp"
-        android:layout_below="@+id/spinner_mode"
-        android:layout_toRightOf="@+id/text_hue"
-        android:text="@string/info_brightness"
-        android:textColor="@color/color_text"
         />
 
     <TextView
@@ -181,6 +158,16 @@
         android:layout_below="@+id/picker_delay"
         android:text="@string/info_R"
         android:textColor="@color/color_text"
+        />
+
+    <EditText
+        android:id="@+id/input_R"
+        android:layout_width="50dp"
+        android:layout_height="30dp"
+        android:layout_below="@id/info_R"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:background="@color/color_text"
         />
 
     <TextView
@@ -196,6 +183,17 @@
         android:textColor="@color/color_text"
         />
 
+    <EditText
+        android:id="@+id/input_G"
+        android:layout_width="50dp"
+        android:layout_height="30dp"
+        android:layout_below="@id/info_R"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="10dp"
+        android:layout_toRightOf="@id/input_R"
+        android:background="@color/color_text"
+        />
+
     <TextView
         android:id="@+id/info_B"
         android:layout_width="wrap_content"
@@ -209,25 +207,6 @@
         android:textColor="@color/color_text"
         />
 
-    <EditText
-        android:id="@+id/input_R"
-        android:layout_width="50dp"
-        android:layout_height="30dp"
-        android:layout_below="@id/info_R"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="10dp"
-        android:background="@color/color_text"
-        />
-    <EditText
-        android:id="@+id/input_G"
-        android:layout_width="50dp"
-        android:layout_height="30dp"
-        android:layout_below="@id/info_R"
-        android:layout_marginLeft="15dp"
-        android:layout_marginTop="10dp"
-        android:layout_toRightOf="@id/input_R"
-        android:background="@color/color_text"
-        />
     <EditText
         android:id="@+id/input_B"
         android:layout_width="50dp"

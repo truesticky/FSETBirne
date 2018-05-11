@@ -18,10 +18,18 @@
         <item>Rainbow</item>
         <item>Chase</item>
         <item>Rainbow Chase</item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item>White</item>
+
     </string-array>
 
     <string-array name="segments">
-        <item>Bulb</item>
+        <item>Outer</item>
         <item>Inner</item>
         <item>Gewinde</item>
 

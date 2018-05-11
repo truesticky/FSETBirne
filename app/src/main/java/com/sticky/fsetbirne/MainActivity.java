@@ -1,6 +1,7 @@
 package com.sticky.fsetbirne;
 
-import android.support.v7.app.AppCompatActivity;
+import android.app.Activity;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.text.InputType;
 import android.view.View;
@@ -23,32 +24,50 @@ import com.android.volley.toolbox.Volley;
 import java.util.HashMap;
 import java.util.Map;
 
-public class MainActivity extends AppCompatActivity
+public class MainActivity extends Activity
 {
     String ip = "192.168.4.1";
     String[] modes;
     String httpRequest;
 
-    int BULB_START = 0;
-    int BULB_END = 300;
     int RGB_MAX = 255;
-    int INNER_START;
-    int INNER_END;
-    int segmentStart[] = {BULB_START,50,90,130,150,200,240,290};
-    int segmentEnd[] = {49,89,129,149,199,239,BULB_END};
+    //Segments
+    int BULB_START = 0;
+    int BULB_END = 600;
+    int OUTER_START = BULB_START;
+    int OUTER_END = 199;
+    int THREAD_START = 400;
+    int THREAD_END = BULB_END;
+    int INNER_START = 200;
+    int INNER_END = 399;
+    //Programs
 
 
 
-    int brightness = 100, mode = 1, led_Start = BULB_START, led_End = BULB_END, r = RGB_MAX,g = RGB_MAX,b = RGB_MAX, hue = 100, delay = 200;
+    int segmentStart[] = {BULB_START,INNER_START,THREAD_START};
+    int segmentEnd[] = {OUTER_END,INNER_END,BULB_END};
+
+
+    int brightness = 100,
+            mode = 1,
+            led_Start = BULB_START,
+            led_End = BULB_END,
+            r = RGB_MAX,
+            g = RGB_MAX,
+            b = RGB_MAX,
+            hue = 100,
+            delay = 200;
+
     boolean connected;
     Button changeButton, executeButton;
-    NumberPicker delayPicker, huePicker, brightnessPicker;
-    EditText pickRed, pickGreen, pickBlue;
+    NumberPicker delayPicker, brightnessPicker;
+    EditText pickRed, pickGreen,pickBlue;
     Spinner modeMenu, startSegmentMenu, endSegmentMenu;
     ImageView statusLight;
     RequestQueue requestQueue;
     StringRequest stringRequest;
     ArrayAdapter<CharSequence> modeAdapter, startSegmentAdapter, endSegmentAdapter;
+    Toast dbug;
 
 
     @Override
@@ -59,13 +78,7 @@ public class MainActivity extends AppCompatActivity
 
         requestQueue = Volley.newRequestQueue(this);
         checkConnection();
-
-        requestQueue.add(stringRequest);
-
-        /*TODO Add Request Queue
-        * TODO Create HTTP Request String
-        * TODO Make it work
-        * TODO Handle Connection Status
+        /* TODO Make it work
         *
         * */
         // ---Number Pickers---
@@ -73,11 +86,6 @@ public class MainActivity extends AppCompatActivity
         delayPicker = (NumberPicker) findViewById(R.id.picker_delay);
         delayPicker.setMinValue(0);
         delayPicker.setMaxValue(1000);
-
-        //Hue
-        huePicker = (NumberPicker) findViewById(R.id.picker_HUE);
-        huePicker.setMaxValue(1000);
-        huePicker.setMinValue(0);
 
         //Brightness
         brightnessPicker = (NumberPicker) findViewById(R.id.picker_brightness);
@@ -88,20 +96,27 @@ public class MainActivity extends AppCompatActivity
         //Red
         pickRed = (EditText) findViewById(R.id.input_R);
         pickRed.setInputType(InputType.TYPE_CLASS_NUMBER);
+        pickRed.setText("255");
         //Green
         pickGreen = (EditText) findViewById(R.id.input_G);
         pickGreen.setInputType(InputType.TYPE_CLASS_NUMBER);
+        pickGreen.setText("255");
 
         //Blue
         pickBlue = (EditText) findViewById(R.id.input_B);
         pickBlue.setInputType(InputType.TYPE_CLASS_NUMBER);
+        pickBlue.setText("255");
         //---Spinner---
         //Mode
         modeMenu = (Spinner) findViewById(R.id.spinner_mode);
         modeAdapter = ArrayAdapter.createFromResource(this,R.array.modes,android.R.layout.simple_spinner_item);
         modeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         modeMenu.setAdapter(modeAdapter);
-        modeMenu.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        //OnItemSelect
+        modeMenu.setOnItemSelectedListener
+                (
+                new AdapterView.OnItemSelectedListener()
+        {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id)
             {
@@ -113,14 +128,19 @@ public class MainActivity extends AppCompatActivity
             {
                 mode = 1;
             }
-        });
+        }
+                );
 
         //Segment Start
         startSegmentMenu = (Spinner) findViewById(R.id.picker_startLED);
         startSegmentAdapter = ArrayAdapter.createFromResource(this, R.array.segments, android.R.layout.simple_spinner_item);
         startSegmentAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         startSegmentMenu.setAdapter(startSegmentAdapter);
-        startSegmentMenu.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        //OnItemSelect
+        startSegmentMenu.setOnItemSelectedListener
+                (
+                new AdapterView.OnItemSelectedListener()
+        {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id)
             {
@@ -132,14 +152,19 @@ public class MainActivity extends AppCompatActivity
             {
                 led_Start = BULB_START;
             }
-        });
+        }
+                );
 
         //Segment End
         endSegmentMenu = (Spinner) findViewById(R.id.picker_endLED);
         endSegmentAdapter = ArrayAdapter.createFromResource(this, R.array.segments, android.R.layout.simple_spinner_item);
         endSegmentAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         endSegmentMenu.setAdapter(endSegmentAdapter);
-        endSegmentMenu.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        //OnItemSelect
+        endSegmentMenu.setOnItemSelectedListener
+                (
+                new AdapterView.OnItemSelectedListener()
+        {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id)
             {
@@ -151,7 +176,8 @@ public class MainActivity extends AppCompatActivity
             {
                 led_End = BULB_END;
             }
-        });
+        }
+                );
         //---ImageView---
         statusLight = (ImageView) findViewById(R.id.icon_connection);
         statusLight.setOnClickListener(new View.OnClickListener()
@@ -165,7 +191,8 @@ public class MainActivity extends AppCompatActivity
 
         //---Button---
         changeButton = (Button) findViewById(R.id.button_send);
-        changeButton.setOnClickListener(
+        changeButton.setOnClickListener
+                (
                 new View.OnClickListener()
         {
             @Override
@@ -175,10 +202,15 @@ public class MainActivity extends AppCompatActivity
                 r = Integer.parseInt(pickRed.getText().toString());
                 g = Integer.parseInt(pickGreen.getText().toString());
                 b = Integer.parseInt(pickBlue.getText().toString());
-                hue = huePicker.getValue();
+                float hsv[] = new float[3];
+                Color.RGBToHSV(r,g,b,hsv);
+                hue = Math.round(hsv[0]);
                 delay = delayPicker.getValue();
+                dbug = Toast.makeText(v.getContext(),"brightness = " + brightness + " \nhue = " + hue + " \nmode = " + mode + " \nStart LED = " + led_Start + " \nEnd LED = " + led_End,Toast.LENGTH_SHORT);
+                dbug.show();
             }
-        });
+        }
+                );
 
         executeButton = (Button) findViewById(R.id.button_execute);
         executeButton.setOnClickListener(new View.OnClickListener()
@@ -214,13 +246,11 @@ public class MainActivity extends AppCompatActivity
                 {
                     protected Map<String, String> getParams() {
                         Map<String, String> MyData = new HashMap<String, String>();
-                        MyData.put("program", ""+ mode); //Add the data you'd like to send to the server.
+                        MyData.put("program", ""+ mode);
                         MyData.put("brightness","" + brightness);
                         MyData.put("start", "" + led_Start);
                         MyData.put("ending", "" + led_End);
-                        MyData.put("red", "" + r);
-                        MyData.put("green", "" + g);
-                        MyData.put("blue", "" + b);
+                        MyData.put( "hue" , "" + hue);
                         return MyData;
                     }
                 };
@@ -258,5 +288,9 @@ public class MainActivity extends AppCompatActivity
             }
         }
         );
+        dbug = Toast.makeText(this, "Request sent",Toast.LENGTH_LONG);
+        dbug.show();
+
+        requestQueue.add(stringRequest);
     }
 }
